@@ -1,0 +1,15 @@
+include ':aidlserver'
+include ':dibinder'
+include ':compiler'
+include ':annotation'
+include ':myplugin'
+include ':app'
+rootProject.name = "HookPractice"
+
+this.gradle.settingsEvaluated {
+    println('【初始化阶段】：settingsEvaluated in settings.gradle')
+}
+
+this.gradle.projectsLoaded {
+    println('【初始化阶段】：projectsLoaded in settings.gradle')
+}
