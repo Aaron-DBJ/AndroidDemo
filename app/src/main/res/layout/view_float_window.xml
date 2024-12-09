@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.aaron.hookpractice.DragLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.aaron.hookpractice.view.DragLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:clickable="true">
@@ -9,4 +9,4 @@
         android:layout_height="72dp"
         android:background="@drawable/ic_launcher_background"
         android:src="@drawable/ic_launcher_foreground" />
-</com.aaron.hookpractice.DragLayout>
+</com.aaron.hookpractice.view.DragLayout>

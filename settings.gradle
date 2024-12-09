@@ -13,3 +13,4 @@ this.gradle.settingsEvaluated {
 this.gradle.projectsLoaded {
     println('【初始化阶段】：projectsLoaded in settings.gradle')
 }
+include ':plugindemo'

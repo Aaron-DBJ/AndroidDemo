@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/white"
+    tools:context=".activity.MainActivity">
 
     <ImageView
         android:id="@+id/iv_img_start"
@@ -13,17 +14,45 @@
         android:layout_gravity="center"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_background"
-        android:transitionName="rotate"/>
+        android:transitionName="rotate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/fab"
-        android:text="测试"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
+        android:text="测试"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_dialog_email" />
-<!--    <com.aaron.hookpractice.DragLayout-->
+
+    <Button
+        android:id="@+id/btn_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="@dimen/fab_margin"
+        android:text="列表页"
+        app:layout_constraintStart_toEndOf="@+id/fab"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    <Button
+        android:id="@+id/btn_second_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="@dimen/fab_margin"
+        android:text="SecondActivity"
+        app:layout_constraintStart_toEndOf="@+id/btn_list"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
+<!--    <com.aaron.hookpractice.view.DragLayout-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content">-->
 <!--        <ImageView-->
@@ -31,6 +60,50 @@
 <!--            android:layout_height="40dp"-->
 <!--            android:src="@drawable/ic_launcher_foreground"-->
 <!--            android:background="@drawable/ic_launcher_background"/>-->
-<!--    </com.aaron.hookpractice.DragLayout>-->
+<!--    </com.aaron.hookpractice.view.DragLayout>-->
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试主文案"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="发几个的"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_consume_container"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_img_start"
+        android:background="@color/cardview_shadow_start_color">
+
+        <com.aaron.hookpractice.view.ConsumeView
+            android:id="@+id/btn_consume"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="消费"
+            android:background="@color/purple_200"/>
+    </FrameLayout>
+
+</android.support.constraint.ConstraintLayout>
