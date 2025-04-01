@@ -18,6 +18,8 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
+import android.text.Layout;
+import android.text.StaticLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,6 +30,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aaron.dibinder.EasyBinder;
@@ -36,6 +39,7 @@ import com.aaron.hookpractice.R;
 import com.aaron.hookpractice.animate.MyTypeEvaluator;
 import com.aaron.hookpractice.contact.ListActivity;
 import com.aaron.hookpractice.utils.Utils;
+import com.aaron.hookpractice.view.CollapseView;
 import com.aaron.hookpractice.view.ConsumeView;
 import com.example.ffmpegkit.IRemoteService;
 
@@ -44,6 +48,9 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity {
     private static final String TAG = "【MainActivity】";
+    @DIView(R.id.tv_font_metrics)
+    CollapseView tvFontMetricsView;
+
     @DIView(R.id.fab)
     Button fab;
 
@@ -87,8 +94,9 @@ public class MainActivity extends BaseActivity {
 //                startActivity(intent, transitionActivityOptions.toBundle());
 ////                showFloatView();
 //                Utils.toast(activity, "Hook Toast");
-                bindService();
-                animate();
+//                bindService();
+//                animate();
+                changeAppIcon();
             }
         });
         jumpListView.setOnClickListener(v -> {
@@ -107,6 +115,18 @@ public class MainActivity extends BaseActivity {
         btnStartSecondActivity.setOnClickListener(v -> {
             Intent intent = new Intent(this, SecondActivity.class);
             startActivity(intent);
+        });
+
+        tvFontMetricsView.post(()-> {
+            Layout layout = tvFontMetricsView.getLayout();
+            int lineCount = layout.getLineCount();
+            int pos = layout.getLineEnd(1);
+            int posStart = layout.getLineStart(1);
+            CharSequence lastLine = tvFontMetricsView.getText().subSequence(posStart, pos);
+            float lastLineWidth = layout.getPaint().measureText(lastLine.toString());
+            float lastLineWidth2 = layout.getLineWidth(1);
+            Log.d(TAG, "onCreate: font metrics + " +(layout instanceof StaticLayout) + "; line count = " + lineCount + "; pos1 = " + pos + "; posStart1 = " + posStart);
+            Log.d(TAG, "onCreate: font metrics" +  " lastLineWidth = " + lastLineWidth + "; lastLineWidth2 = " + lastLineWidth2 );
         });
     }
 

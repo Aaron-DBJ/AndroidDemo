@@ -26,24 +26,25 @@
             </intent-filter>
         </activity>
 
-<!--        <activity-alias-->
-<!--            android:name="com.aaron.hookpractice.activity.alias1"-->
-<!--            android:enabled="false"-->
-<!--            android:exported="true"-->
-<!--            android:icon="@drawable/leak_canary_icon"-->
-<!--            android:label="AliasHookPractice"-->
-<!--            android:targetActivity=".activity.MainActivity">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+        <activity-alias
+            android:name="com.aaron.hookpractice.activity.alias1"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@drawable/leak_canary_icon"
+            android:label="AliasHookPractice"
+            android:targetActivity=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity-alias>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
 
         <activity
             android:name=".activity.SecondActivity"
             android:launchMode="singleTask"
-            android:taskAffinity="com.sub" />
+            android:taskAffinity="com.sub"
+            android:process=":process2"/>
         <activity android:name=".activity.ThirdActivity" />
         <activity
             android:name=".activity.RotationVectorDemo"

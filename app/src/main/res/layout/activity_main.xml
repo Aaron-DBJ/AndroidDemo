@@ -7,6 +7,14 @@
     android:background="@color/white"
     tools:context=".activity.MainActivity">
 
+    <com.aaron.hookpractice.view.CollapseView
+        android:id="@+id/tv_font_metrics"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        tools:text="文字测量上课好地方海口市束带结发会计师礼金格"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/iv_img_start" />
     <ImageView
         android:id="@+id/iv_img_start"
         android:layout_width="100dp"

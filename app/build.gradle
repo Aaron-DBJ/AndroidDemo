@@ -34,12 +34,13 @@ android {
 
     configurations.all {
         resolutionStrategy.eachDependency { DependencyResolveDetails resolveDetails ->
-                def request = resolveDetails.requested
-                if (request.group == '' && request.name == '') {
-                    resolveDetails.useVersion('3.10.1')
-                }
+            def request = resolveDetails.requested
+            if (request.group == '' && request.name == '') {
+                resolveDetails.useVersion('3.10.1')
+            }
         }
     }
+
 }
 
 
@@ -100,7 +101,7 @@ def hello = tasks.register("HelloTask", HelloTask) {
 }
 
 def bye = tasks.register("bye") {
-    group="hello"
+    group = "hello"
     description = "a task affilates to hello"
 
     println("------ bye bye. ------")
@@ -112,7 +113,7 @@ def bye = tasks.register("bye") {
 }
 
 def cancel = tasks.register("cancel") {
-    group="hello"
+    group = "hello"
 
     finalizedBy(bye)
 
@@ -127,12 +128,14 @@ def cancel = tasks.register("cancel") {
 }
 
 tasks.register("copy", CopyTask) {
-    group="hello"
+    group = "hello"
+
     doFirst {
         print("-------- 执行CopyTask --------")
     }
+
     fromFile = files("from")
-    toDir=layout.projectDirectory.dir("to")
+    toDir = layout.projectDirectory.dir("to")
 }
 
 
@@ -141,7 +144,7 @@ class HelloTask extends DefaultTask {
     def content
 
     @TaskAction
-    def hi(){
+    def hi() {
         print("hi hi ${content}")
     }
 
@@ -160,14 +163,19 @@ class CopyTask extends DefaultTask {
     Directory toDir
 
     @TaskAction
-    def execute(InputChanges inputChanges) {
-        File file = fromFile.getSingleFile()
-        if (file.isDirectory()) {
-            fromFile.getAsFileTree().each {
-                copyFile2Dir(it, toDir)
+    void execute(InputChanges inputChanges) {
+        boolean incremental = inputChanges.incremental
+        println("isIncremental = $incremental")
+        inputChanges.getFileChanges(from).each {
+            if (it.fileType != FileType.DIRECTORY) {
+                ObservableList.ChangeType changeType = it.changeType
+                String fileName = it.file.name
+                println("ChangeType = $changeType , ChangeFile = $fileName")
+
+                if (changeType != ObservableList.ChangeType.REMOVED) {
+                    copyFile2Dir(it, toDir)
+                }
             }
-        } else {
-            copyFile2Dir(file, toDir)
         }
     }
 

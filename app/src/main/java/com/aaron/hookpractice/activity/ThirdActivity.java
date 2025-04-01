@@ -1,6 +1,7 @@
 package com.aaron.hookpractice.activity;
 
 import android.content.Intent;
+import android.content.UriMatcher;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Button;
@@ -18,6 +19,7 @@ public class ThirdActivity extends BaseActivity {
     @DIView(R.id.btn_jump)
     Button button;
 
+    UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,5 +29,6 @@ public class ThirdActivity extends BaseActivity {
             Intent intent = new Intent(ThirdActivity.this, SecondActivity.class);
             startActivity(intent);
         });
+
     }
 }

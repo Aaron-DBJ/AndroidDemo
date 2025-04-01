@@ -4,16 +4,23 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.BottomSheetDialogFragment;
+import android.text.SpannableStringBuilder;
 import android.transition.ChangeBounds;
 import android.transition.ChangeTransform;
 import android.transition.Transition;
 import android.transition.TransitionValues;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,8 +31,16 @@ import com.aaron.dibinder.ServiceLoader;
 import com.aaron.diview.DIView;
 import com.aaron.hookpractice.R;
 import com.aaron.hookpractice.RotateTransition;
+import com.aaron.hookpractice.dialog.MyBottomDialogFragment;
+import com.aaron.hookpractice.dialog.MyBottomSheetDialog;
 import com.aaron.hookpractice.service.MyService;
 import com.aaron.hookpractice.spi.ImageService;
+import com.aaron.hookpractice.view.AutoScrollTextView;
+import com.aaron.hookpractice.view.CollapseView;
+import com.aaron.hookpractice.view.TextFlipper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SecondActivity extends BaseActivity {
     private static final String TAG = "【SecondActivity】";
@@ -33,7 +48,7 @@ public class SecondActivity extends BaseActivity {
     Button button;
 
     @DIView(R.id.textView)
-    TextView textView;
+    CollapseView textView;
 
     @DIView(R.id.iv_img_end)
     ImageView imgEnd;
@@ -43,6 +58,12 @@ public class SecondActivity extends BaseActivity {
 
     @DIView(R.id.btn_stop_service)
     Button btnStopService;
+
+    @DIView(R.id.btn_bottom_sheet_dialog)
+    Button btnBottomSheetDialog;
+
+    @DIView(R.id.text_flipper)
+    AutoScrollTextView textFlipper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,12 +121,39 @@ public class SecondActivity extends BaseActivity {
             imageService.image();
         }
         initView();
+        startFlipper();
     }
-
 
     private void initView() {
         btnStartService.setOnClickListener(v -> executeService(true));
         btnStopService.setOnClickListener(v -> executeService(false));
+        textView.setContent(new SpannableStringBuilder("文字测量上课好地方海口市束带结发会计师礼金格蛇口街道家里的事"));
+        MyBottomDialogFragment bottomSheetDialogFragment = new MyBottomDialogFragment();
+
+//        MyBottomSheetDialog bottomSheetDialog = new MyBottomSheetDialog(this, R.style.leak_canary_Theme_Transparent);
+//        bottomSheetDialog.setContentView(R.layout.view_bottom_sheet_dialog);
+        btnBottomSheetDialog.setOnClickListener(v -> bottomSheetDialogFragment.show(SecondActivity.this.getSupportFragmentManager(),"one") );
+    }
+
+    private List<String> contents = new ArrayList<>();
+
+    private void startFlipper() {
+//        contents.add("的手机号发给技术");
+//        contents.add("束带结发寄给你漱口水登记卡放哪");
+//        contents.add("山东高速");
+//        contents.add("看上你放假时光山莨菪碱归纳");
+//        textFlipper.removeAllViews();
+//
+//        for (String content : contents) {
+//            TextView textView = new TextView(this);
+//            textView.setTextSize(18);
+//            textView.setTextColor(Color.MAGENTA);
+//            textView.setText(content);
+//            textFlipper.addView(textView);
+//        }
+//
+//        textFlipper.startFlipping();
+        textFlipper.setTexts(new String[]{"世界多极化施工方计划", "伤筋动骨还是个好哦搜啥搭嘎你把", "东莞啥都好说", "四大金刚两三个的"});
     }
 
     private void executeService(boolean isStart) {

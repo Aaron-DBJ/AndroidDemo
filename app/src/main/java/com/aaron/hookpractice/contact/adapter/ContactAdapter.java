@@ -1,6 +1,7 @@
 package com.aaron.hookpractice.contact.adapter;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -8,11 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aaron.hookpractice.R;
 import com.aaron.hookpractice.contact.bean.ListItemBean;
+import com.aaron.hookpractice.contact.interfaces.IDragSwipe;
 import com.aaron.hookpractice.utils.ListUtils;
+import com.aaron.hookpractice.utils.MToast;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,7 +25,7 @@ import java.util.List;
  * date: 2024/9/29
  * description:
  **/
-public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHolder> {
+public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHolder> implements IDragSwipe {
     private static final String TAG = "ContactAdapter";
     public static final int VIEW_TYPE_0 = 0;
     public static final int VIEW_TYPE_1 = 1;
@@ -84,6 +89,26 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHo
     @Override
     public int getItemCount() {
         return mData != null ? mData.size() : 0;
+    }
+
+    @Override
+    public void onItemSwapped(int fromPosition, int toPosition) {
+        Collections.swap(mData, fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
+    @Override
+    public void onItemDeleted(int position) {
+        MToast.toast(mContext, "第" + position + "项 被删除");
+        mData.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    @Override
+    public void onItemDone(int position) {
+        MToast.toast(mContext, "第" + position + "项 已完成");
+        mData.remove(position);
+        notifyItemRemoved(position);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

@@ -1,5 +1,6 @@
 package com.aaron.hookpractice.contact;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
@@ -12,6 +13,7 @@ import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ import com.aaron.hookpractice.contact.bean.ListItemBean;
 import com.aaron.hookpractice.contact.callback.ContactDiffCallback;
 import com.aaron.hookpractice.contact.callback.ContactItemCallback;
 import com.aaron.hookpractice.contact.callback.ContactListUpdateCallback;
+import com.aaron.hookpractice.contact.callback.DragSwipeCallback;
 import com.aaron.hookpractice.utils.ListUtils;
 import com.aaron.hookpractice.utils.MToast;
 
@@ -85,6 +88,10 @@ public class ListActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(null);
         recyclerView.setAdapter(mAdapter);
+
+        DragSwipeCallback dragSwipeCallback = new DragSwipeCallback(mAdapter);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(dragSwipeCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         icon1.setOnClickListener(v -> {
             List<ListItemBean> diff = new ArrayList<>();
